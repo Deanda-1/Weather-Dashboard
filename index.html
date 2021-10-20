@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets\assets/style.css">
+    <title>Weather Dashboard</title>
+</head>
+<body>
+     <header>
+         <div id="dashboard-heading"><h1>Weather Dashboard</h1></div>
+    </header>
+    <div class="row">
+        <div class="col-3">
+            <div class="card">
+                <h3>Search By City</h3>
+                <form class="form">
+                    <input name="city" type="text" class="input"/>
+                    <button type="submit" id="search-btn">Search</button>
+                </form>
+            </div>
+            <section>
+            <div class="saved-city">
+            <ul id="city-list">
+                <li class="saved-city"><button type="button" class="city-btn">Future Cities</button></li>
+                <li class="saved-city"><button type ="button" class="city-btn">More Cities</button></li>
+            </ul>
+            </div>
+            </section>
+
+            <div class="col-9">
+                <div id="city-container" class="row align-content-left border border-dark">
+                    <h3>City Selected</h3>
+                    <div class="row" id="temp">Temperature:</div>
+                    <div class="row" id="wind">Wind</div>
+                    <div class="row" id="humidity">Humidity</div>
+                    <div class="row" id="uvi">UV Index</div>
+                </div>
+            </div>
+
+            <div id="flex-container">
+        
+                <h4 class="forecast">5 day Forecast:</h4>
+                <div id="day-1" class="col-2">Day one
+                    <div class="row" id="day1icon">Icon:</div>
+                    <div class="row" id="day1temp">Temp:</div>
+                    <div class="row" id="day1wind" >Wind:</div>
+                    <div class="row" id="day1humid">Humidity:</div>
+                </div>
+                <div id="day-2" class="col-2">Day two 
+                    <div class="row" id="day2icon">Icon:</div>
+                    <div class="row" id="day2temp">Temp:</div>
+                    <div class="row" id="day2wind">Wind:</div>
+                    <div class="row" id="day2humid">Humidity</div>
+                </div>    
+                <div id="day-3" class="col-2">Day three 
+                    <div class="row" id="day3icon">Icon:</div>
+                    <div class="row" id="day3temp">Temp:</div>
+                    <div class="row" id="day3wind">Wind:</div>
+                    <div class="row" id="day3humid">Humidity</div>
+                </div>  
+                <div id="day-4" class="col-2">Day four 
+                    <div class="row" id="day4icon">Icon:</div>
+                    <div class="row" id="day4temp">Temp:</div>
+                    <div class="row" id="day4wind">Wind:</div>
+                    <div class="row" id="day4humid">Humidity</div>
+                </div>  
+                <div id="day-5" class="col-2">Day five 
+                    <div class="row" id="day5icon">Icon:</div>
+                    <div class="row" id="day5temp">Temp:</div>
+                    <div class="row" id="day5wind">Wind:</div>
+                    <div class="row" id="day5humid">Humidity</div>
+                </div>  
+            </div>
+    
+    <script src="assets/js/script.js"></script>
+
+</body>
+</html>

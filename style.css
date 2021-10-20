@@ -1,0 +1,88 @@
+#dashboard-heading {
+    text-align: center;
+    background-color: blue;
+    color: white;
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+.card {
+    border-bottom: 2px solid black;
+    border-top: white;
+    border-right: white;
+    border-left: white;
+    margin: 10px;
+    padding: 5px;
+    padding-bottom: 20px;
+    width: 240px;
+    border-radius: 0px;
+}
+
+#search-btn {
+    margin: 5px;
+    width: 200px;
+    background-color: blue;
+    color: white;
+    border-radius: 5px;
+}
+
+.input {
+    width: 200px;
+    height: 20px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.current-city {
+    display: flex;
+    text-align: center;
+    margin: 0px;
+}
+
+#city-container {
+    flex-direction: flex;
+    width: 800px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.forecast {
+    display:flex;
+    flex-direction: row;
+    align-content: space-between;
+    margin: 8px;
+    color: black;
+    padding: 20px;
+}
+
+.city-btn {
+    background-color: gray;
+    width: 200px;
+    text-align: center;
+    margin: 10px;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+#city-list {
+    list-style-type:none;
+}
+
+#uv {
+    height: 20px;
+    width: 20px;
+    background-color: red;
+    margin: 3px;
+}
+
+#flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+#flex-container .flex-item {
+    flex: auto;
+    align-content: space-between;
+    padding: 20px;
+    width: 100px;
+}
