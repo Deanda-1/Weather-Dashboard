@@ -103,6 +103,7 @@ var getWeather = function(currentCity) {
             })
          })
       });
+   });
 }
 
 var getSavedCities = function(savedCityObjects) {
