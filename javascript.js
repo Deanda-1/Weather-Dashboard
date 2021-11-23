@@ -1,6 +1,9 @@
 var cityInputE1 = document.querySelector(".input");
 var submitButton = document.querySelector("#search-btn");
 var currentCityE1 = document.getElementById("current-city");
+var currentDayIcon = document.getElementById("daily-icon");
+
+var myAPIkey = "5bdd1522ff5ab373e8a9936f79a39b84";
 
 var savedCities = [];
 
@@ -13,36 +16,44 @@ var savedCities = [];
 var submitButtonHandler = function(event) {
    event.preventDefault();
    //city from input
-   var currentCity = cityInputE1.ariaValueMax.trim();
+   // console.log(cityInputE1.value);
+   var currentCity = cityInputE1.value.trim();
    //enter a city
    if (currentCity) {
       getWeather(currentCity);
       cityInputE1.value = "";
-      currentCityE1.innerText = currentCity;
+      addCity(currentCity);
    } else {
       alert("Please enter a city");
    }
 }
 
 var getWeather = function(currentCity) {
-   var weatherAPIUrl ="https://openweathermap.org/" + currentCity
+   currentCityE1.innerText = currentCity;
+   var weatherAPIUrl ="https://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "&units=imperial&appid="+myAPIkey;
    fetch(weatherAPIUrl).then(function(response){
       response.json().then(function(data) {
          var lat = data.coord.lat;
-         var long = data.coord.long;
-         var apiUrl = "https://openweathermap.org/";
+         var long = data.coord.lon;
+         var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+long+"&units=imperial&appid="+myAPIkey;
+         console.log("simple", data);
 
          fetch(apiUrl).then(function(response) {
             response.json().then(function(data) {
-               var savedCityObject = {
-                  city: currentCity,
-                  url: weatherAPIUrl
-               }
+               console.log("detailed", data);
+
+               var savedCityObject = JSON.parse(localStorage.getItem("savedCityObject"));
+
+               if (!savedCityObject) { savedCityObject = [];}
+
+               savedCityObject.push( currentCity );
+
                localStorage.setItem("savedCityObject", JSON.stringify(savedCityObject));
                
                var icon = data.current.weather[0].icon;
-               variconLink = "https://openweahtermap.org/img/w/" + data.current.weather[0].icon + ".png";
+               var iconLink = "https://openweathermap.org/img/w/" + data.current.weather[0].icon + ".png";
                console.log(iconLink);
+               currentDayIcon.src = iconLink;
 
                var currentTempE1 = document.getElementById("temp");
                currentTempE1.textContent = "Temperature: " + data.current.temp + "Degrees";
@@ -56,50 +67,26 @@ var getWeather = function(currentCity) {
                var uviE1 = document.getElementById("uvi");
                uviE1.textContent = "UV Index: " + data.current.uvi 
 
-               var tempE1One = document.getElementById("temp");
-               tempE1One.textContent = "Temperature: " + data.daily[0].temp.day + "Degrees";
+               for (var day=1; day<=5;day++)
+               {
+                  var date = document.getElementById("day"+day+"date");
+                  date.textContent = moment().add(day,'days').format('M/DD/YYYY');
 
-               var windE1ONE = document.getElementById("wind");
-               windE1One.textContent = "Wind: " + data.daily[0].wind_speed + " MPH";
+                  var icon = document.getElementById("day"+day+"icon");
+                  icon.src = "https://openweathermap.org/img/w/"+data.daily[day].weather[0].icon+".png";
 
-               var humidityE1One = document.getElementById("humidity");
-               humidityE1One.textContent = "Humidity: " + data.daily[0].humidity + " %";
+                  var temp = document.getElementById("day"+day+"temp");
+                  temp.innerHTML = "Temp: " + data.daily[day].temp.day + " &deg;F";
 
-               var tempE1Two = document.getElementById("temp");
-               tempE1Two.textContent = "Temperature: " + data.daily[1].temp.day + "Degrees";
+                  var wind = document.getElementById("day"+day+"wind");
+                  wind.textContent = "Wind: " + data.daily[day].wind_speed + " MPH";
 
-               var windE1Two = document.getElementById("wind");
-               windE1Two.textContent = "Wind: " + data.daily[1].wind_speed + " MPH";
+                  var humid = document.getElementById("day"+day+"humid");
+                  humid.textContent = "Humidity: " + data.daily[day].humidity + "%";
 
-               var humidityE1Two = document.getElementById("humidity");
-               humidityE1Two.textContent = "Humidity: " + data.daily[1].humidity + " %";
-
-               var tempE1Three = document.getElementById("temp");
-               tempE1Three.textContent = "Temperature: " + data.daily[2].temp.day + "Degrees";
-
-               var windE1Three = document.getElementById("wind");
-               windE1Three.textContent = "Wind: " + data.daily[2].wind_speed + " MPH";
-
-               var humidityE1Three = document.getElementById("humidity");
-               humidityE1Three.textContent = "Humidity: " + data.daily[2].humidity + " %";
-
-               var tempE1Four = document.getElementById("temp");
-               tempE1Four.textContent = "Temperature: " + data.daily[3].temp.day + "Degrees";
-
-               var windE1Four = document.getElementById("wind");
-               windE1Four.textContent = "Wind: " + data.daily[3].wind_speed + " MPH";
-
-               var humidityE1Four = document.getElementById("humidity");
-               humidityE1Four.textContent = "Humidity: " + data.daily[3].humidity + " %";
-
-               var tempE1Five = document.getElementById("temp");
-               tempE1Five.textContent = "Temperature: " + data.daily[4].temp.day + "Degrees";
-
-               var windE1Five = document.getElementById("wind");
-               windE1Five.textContent = "Wind: " + data.daily[4].wind_speed + " MPH";
-
-               var humidityE1Five = document.getElementById("humidity");
-               humidityE1Five.textContent = "Humidity: " + data.daily[4].humidity + " %";
+                  var uvi = document.getElementById("day"+day+"uvi");
+                  uvi.textContent = "UVI: "+ data.daily[day].uvi;
+               }
             })
          })
       });
@@ -109,28 +96,37 @@ var getWeather = function(currentCity) {
 var getSavedCities = function(savedCityObjects) {
    var savedCityObject = localStorage.getItem("savedCityObject");
    if (savedCityObject) {
-      var savedCity = JSON.parse(localStorage.getItem("savedCityObject"));
-      console.log(City.city);
-      console.log(savedCity.url);
+      var savedCityObject = JSON.parse(savedCityObject);
+      console.log(savedCityObject);
+   }
+   else{
+      savedCityObject = [];
    }
 }
 
 getSavedCities();
 
+function addCity(city){
+   var elementCity = document.createElement("li")
+   elementCity.className = "saved-city";
+   var elementButton = document.createElement("button");
+   elementButton.textContent = city;
+   elementButton.className = "city-btn";
+   elementCity.appendChild(elementButton);
+   savedCityE1.appendChild(elementCity);
+   elementButton.addEventListener("click", function(){getWeather(this.textContent);});
+}
+
 var savedCityE1 = document.querySelector("#city-list");
-varcityListE1 = document.createElement("li");
-cityListE1.className = "saved-city";
-var savedCityButton = document.createElement("btn");
-savedCityButton.textContent = "test two";
-savedCityButton.className = "city-btn";
-cityListE1.appendChild(savedCityButton);
-savedCityE1.appendChild(cityListE1);
-   
+
+// Search Bar Submit button
 submitButton.addEventListener("click", submitButtonHandler)
 
-btns = document.getElementsByClassName("city-btn");
-for(var i = 0; i < btns.length; i++) {
-   btns[i].addEventListener("click", function () {
-      console.log("I was clicked");
-   })
+// Button History buttons
+var savedCityObject = [...new Set(JSON.parse(localStorage.getItem("savedCityObject")))];
+// the above trickery uses the Set object to remove duplicates and still return an array
+
+for (i=0;i<savedCityObject.length;i++){
+   //console.log(savedCityObject[i]);
+   addCity(savedCityObject[i]);
 }

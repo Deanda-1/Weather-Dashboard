@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Weather Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 </head>
 <body>
      <header>
@@ -23,54 +24,61 @@
             <section>
             <div class="saved-city">
             <ul id="city-list">
-                <li class="saved-city"><button type="button" class="city-btn">Future Cities</button></li>
-                <li class="saved-city"><button type ="button" class="city-btn">More Cities</button></li>
             </ul>
             </div>
             </section>
 
             <div class="col-9">
                 <div id="city-container" class="row align-content-left border border-dark">
-                    <h3>City Selected</h3>
+                    <h3 id="current-city">City Selected</h3>
+                    <img id="daily-icon" src="">
                     <div class="row" id="temp">Temperature:</div>
                     <div class="row" id="wind">Wind</div>
                     <div class="row" id="humidity">Humidity</div>
                     <div class="row" id="uvi">UV Index</div>
                 </div>
             </div>
-
+            <h4 class="forecast">5 day Forecast:</h4>
             <div id="flex-container">
-        
-                <h4 class="forecast">5 day Forecast:</h4>
-                <div id="day-1" class="col-2">Day one
-                    <div class="row" id="day1icon">Icon:</div>
+                <div id="day-1" class="col-2">
+                    <div class="row" id="day1date"></div>
+                    <img class="row" id="day1icon">
                     <div class="row" id="day1temp">Temp:</div>
                     <div class="row" id="day1wind" >Wind:</div>
                     <div class="row" id="day1humid">Humidity:</div>
+                    <div class="row" id="day1uvi">UVI:</div>
                 </div>
-                <div id="day-2" class="col-2">Day two 
-                    <div class="row" id="day2icon">Icon:</div>
+                <div id="day-2" class="col-2">
+                    <div class="row" id="day2date"></div>
+                    <img class="row" id="day2icon">
                     <div class="row" id="day2temp">Temp:</div>
                     <div class="row" id="day2wind">Wind:</div>
                     <div class="row" id="day2humid">Humidity</div>
+                    <div class="row" id="day2uvi">UVI:</div>
                 </div>    
-                <div id="day-3" class="col-2">Day three 
-                    <div class="row" id="day3icon">Icon:</div>
+                <div id="day-3" class="col-2">
+                    <div class="row" id="day3date"></div> 
+                    <img class="row" id="day3icon">
                     <div class="row" id="day3temp">Temp:</div>
                     <div class="row" id="day3wind">Wind:</div>
                     <div class="row" id="day3humid">Humidity</div>
+                    <div class="row" id="day3uvi">UVI:</div>
                 </div>  
-                <div id="day-4" class="col-2">Day four 
-                    <div class="row" id="day4icon">Icon:</div>
+                <div id="day-4" class="col-2">
+                    <div class="row" id="day4date"></div>
+                    <img class="row" id="day4icon">
                     <div class="row" id="day4temp">Temp:</div>
                     <div class="row" id="day4wind">Wind:</div>
                     <div class="row" id="day4humid">Humidity</div>
+                    <div class="row" id="day4uvi">UVI:</div>
                 </div>  
-                <div id="day-5" class="col-2">Day five 
-                    <div class="row" id="day5icon">Icon:</div>
+                <div id="day-5" class="col-2">
+                    <div class="row" id="day5date"></div> 
+                    <img class="row" id="day5icon">
                     <div class="row" id="day5temp">Temp:</div>
                     <div class="row" id="day5wind">Wind:</div>
                     <div class="row" id="day5humid">Humidity</div>
+                    <div class="row" id="day5uvi">UVI:</div>
                 </div>  
             </div>
     
